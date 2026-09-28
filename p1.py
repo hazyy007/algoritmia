@@ -155,3 +155,15 @@ def plot_single_curve(
 
     # Mostrar la figura en pantalla.
     plt.show()
+
+def has_sum_pair(lst, target)->bool:
+    vistos = set()
+    for num in lst:
+        complemneto = target - num
+
+        if complemneto in vistos:
+            return True
+        vistos.add(num)
+
+    return False
+

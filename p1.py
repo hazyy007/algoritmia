@@ -179,3 +179,41 @@ def find_duplicates(lst: list)-> list:
         else:
             visto.add(i)
     return list1
+
+
+def rle_encode_naive(lst)-> list:
+    output_lst = []
+    if not lst:
+        return output_lst
+    elemento_actual = lst[0]
+    contador = 1
+    for num in range(1, len(lst)):
+        if lst[num] == elemento_actual:
+            contador += 1
+        else:
+            output_lst = output_lst + [(elemento_actual, contador)]
+            elemento_actual = lst[num]
+            contador = 1
+
+    output_lst = output_lst + [(elemento_actual, contador)]
+    return output_lst
+
+def rle_encode_optimized(lst) -> list:
+    output_lst = []
+    if not lst:
+        return output_lst
+
+    elemento_actual = lst[0]
+    contador = 1
+
+    for num in range(1, len(lst)):
+        if lst[num] == elemento_actual:
+            contador += 1
+        else:
+            output_lst.append((elemento_actual, contador))
+            elemento_actual = lst[num]
+            contador = 1
+
+    output_lst.append((elemento_actual, contador))
+
+    return output_lst

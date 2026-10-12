@@ -159,15 +159,14 @@ def plot_single_curve(
     # Mostrar la figura en pantalla.
     plt.show()
 
-def has_sum_pair(lst, target)->bool:
+def has_sum_pair(par:tuple) -> bool:
+    lst, target = par
     vistos = set()
     for num in lst:
-        complemneto = target - num
-
-        if complemneto in vistos:
+        complemento = target - num
+        if complemento in vistos:
             return True
         vistos.add(num)
-
     return False
 
 def find_duplicates(lst: list)-> list:
@@ -226,16 +225,17 @@ def init_cd(n: int)-> np.ndarray:
     np1 = np.array(lst)
     return np1
 
-def find(ind: int, p_cd: np.ndarray)-> int:
-    while p_cd[ind]>=0:
-        ind= p_cd[ind]
-    return ind   
+def find(ind: int, p_cd: np.ndarray) -> int:
+    if p_cd[ind] < 0:
+        return ind
+    p_cd[ind] = find(p_cd[ind], p_cd)
+    return p_cd[ind]   
 
 def union(rep_1: int, rep_2: int, p_cd: np.ndarray)-> int:
     a=find(rep_1,p_cd)
     b=find(rep_2,p_cd)
     if a==b:
-        return None
+        return a
     if p_cd[a]<p_cd[b]:
         p_cd[b]=a
         return a

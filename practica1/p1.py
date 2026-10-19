@@ -159,12 +159,11 @@ def plot_single_curve(
     # Mostrar la figura en pantalla.
     plt.show()
 
-def has_sum_pair(par:tuple) -> bool:
-    lst, target = par
+def has_sum_pair(lst, target) -> bool:
     vistos = set()
     for num in lst:
-        complemento = target - num
-        if complemento in vistos:
+        aux = target - num
+        if aux in vistos:
             return True
         vistos.add(num)
     return False

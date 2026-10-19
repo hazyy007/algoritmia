@@ -85,7 +85,7 @@ def time_measure(
 
     return results
 
-<<<<<<< HEAD:practica1/p1.py
+
 
 # Función auxiliar para generar una gráfica de una serie de datos.
 def plot_single_curve(
@@ -158,12 +158,7 @@ def plot_single_curve(
     # Mostrar la figura en pantalla.
     plt.show()
 
-def has_sum_pair(lst, target) -> bool:
-    vistos = set()
-    for num in lst:
-        aux = target - num
-        if aux in vistos:
-=======
+
 #I.A.3
 def has_sum_pair(par:tuple) -> bool:
     lst, target = par
@@ -171,7 +166,6 @@ def has_sum_pair(par:tuple) -> bool:
     for num in lst:
         comp = target - num
         if comp in vistos:
->>>>>>> 63bd6a4cfb68b4534c5464a4d7b3aecfa87bf86f:p1.py
             return True
         vistos.add(num)
     return False

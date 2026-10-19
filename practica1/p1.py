@@ -4,8 +4,6 @@ from collections.abc import Callable, Iterable, Sequence
 from typing import Any
 import time  # Proporciona temporizadores de alta resolución.
 
-import matplotlib.pyplot as plt  # Biblioteca utilizada para crear gráficas.
-
 import math
 
 import numpy as np
@@ -87,6 +85,7 @@ def time_measure(
 
     return results
 
+<<<<<<< HEAD:practica1/p1.py
 
 # Función auxiliar para generar una gráfica de una serie de datos.
 def plot_single_curve(
@@ -164,10 +163,20 @@ def has_sum_pair(lst, target) -> bool:
     for num in lst:
         aux = target - num
         if aux in vistos:
+=======
+#I.A.3
+def has_sum_pair(par:tuple) -> bool:
+    lst, target = par
+    vistos = set()
+    for num in lst:
+        comp = target - num
+        if comp in vistos:
+>>>>>>> 63bd6a4cfb68b4534c5464a4d7b3aecfa87bf86f:p1.py
             return True
         vistos.add(num)
     return False
 
+#I.A.2
 def find_duplicates(lst: list)-> list:
     list1=[]    
     dupli = set()
@@ -181,7 +190,7 @@ def find_duplicates(lst: list)-> list:
             visto.add(i)
     return list1
 
-
+#I.B.1
 def rle_encode_naive(lst)-> list:
     output_lst = []
     if not lst:
@@ -199,6 +208,7 @@ def rle_encode_naive(lst)-> list:
     output_lst = output_lst + [(elemento_actual, contador)]
     return output_lst
 
+#I.B.2
 def rle_encode_optimized(lst) -> list:
     output_lst = []
     if not lst:
@@ -219,17 +229,26 @@ def rle_encode_optimized(lst) -> list:
 
     return output_lst
 
+#II.A.1
 def init_cd(n: int)-> np.ndarray: 
     lst = n*[-1]
     np1 = np.array(lst)
     return np1
 
+#II.A.2
 def find(ind: int, p_cd: np.ndarray) -> int:
-    if p_cd[ind] < 0:
-        return ind
-    p_cd[ind] = find(p_cd[ind], p_cd)
-    return p_cd[ind]   
+    raiz = ind
+    while p_cd[raiz] >= 0:
+        raiz = p_cd[raiz]
+        
+    aux = ind
+    while aux != raiz:
+        aux2 = p_cd[aux]
+        p_cd[aux] = raiz 
+        aux = aux2
+    return raiz  
 
+#II.A.3
 def union(rep_1: int, rep_2: int, p_cd: np.ndarray)-> int:
     a=find(rep_1,p_cd)
     b=find(rep_2,p_cd)
@@ -245,7 +264,8 @@ def union(rep_1: int, rep_2: int, p_cd: np.ndarray)-> int:
         p_cd[b]=a
         p_cd[a]-=1
         return a
-    
+ 
+#II.A.4   
 def cd_2_dict(p_cd)-> dict:
     res = {}
     for i in range(len(p_cd)):
@@ -254,7 +274,8 @@ def cd_2_dict(p_cd)-> dict:
             res[raiz] = []
         res[raiz].append(i)
     return res
-        
+  
+##II.B.1      
 def ccs(n:int,l:list)->dict: 
     cd=init_cd(n)
     for u,v in l:

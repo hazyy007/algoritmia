@@ -17,6 +17,6 @@ def generate_activities(n: int, seed: int = 42) -> List[Tuple[str, int, int]]:
         start = random.randint(0, 10000)
         duration =random.randint(1,100)
         end = start + duration
-        activities.append(identifier, start, end)
+        activities.append((identifier, start, end))
 
     return activities

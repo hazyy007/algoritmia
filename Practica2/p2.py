@@ -33,8 +33,6 @@ def generate_activities(n: int, seed: int = 42) -> List[Tuple[str, int, int]]:
         duration =random.randint(1,100)
         end = start + duration
         activities.append((identifier, start, end))
-<<<<<<< HEAD
-=======
     return activities
 
 
@@ -80,5 +78,4 @@ def generate_jobs(n: int, seed: int = 42) -> List[Tuple[str, int, int]]:
         jobs.append((identifier, profit, deadline))
 
     return jobs
->>>>>>> b40a1683828594d94d36058805e5cc88aa1f962a
 

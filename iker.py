@@ -34,3 +34,20 @@ def optimal_change(coins: list[int], amount: int) -> list[int] | None:
                 break
 
     return solu
+def compare_change(coins: list[int], max_amount: int) -> dict[str,list[int]]:
+    solu={ "optimal": [...], "suboptimal": [...], "greedy_failed": [...], "impossible": [...] }
+    for i in range(1,max_amount+1):
+        greedy_coins, res = greedy_change(coins, i)
+        op_coins = optimal_change(coins, i)
+        if optimal_change == None:
+            solu["impossible"].append(i)
+        else:
+            if res == 0:
+                if len(greedy_coins) == len(op_coins):
+                    solu["optimal"].append(i)
+                else:
+                    solu["suboptimal"].append(i)
+            else:
+                solu["greedy_failed"].append(i)
+
+    return solu

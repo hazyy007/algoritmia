@@ -1,9 +1,6 @@
 import random
 from typing import List, Tuple, Optional, Dict
 
-# ==========================================
-# I. PROBLEMA DEL CAMBIO DE MONEDAS
-# ==========================================
 
 # I.A.1
 def greedy_change(coins : list[int], amount:int) ->tuple[list[int],int]:
@@ -83,9 +80,6 @@ def compare_change(coins: List[int], max_amount: int) -> Dict[str, List[int]]:
     return result
 
 
-# ==========================================
-# II. SELECCIÓN DE ACTIVIDADES
-# ==========================================
 # II.A.1
 def activity_selection(activities: List[Tuple[str, int, int]]) -> List[Tuple[str, int, int]]:
     sorted_activities = sorted(activities, key=lambda x: (x[2], x[1], x[0]))
@@ -110,11 +104,6 @@ def generate_activities(n: int, seed: int = 42) -> List[Tuple[str, int, int]]:
         end = start + duration
         activities.append((identifier, start, end))
     return activities
-
-
-# ==========================================
-# III. PLANIFICACIÓN DE TAREAS CON FECHAS LÍMITE
-# ==========================================
 
 # III.A.1
 def job_scheduling(jobs: List[Tuple[str, int, int]]) -> Tuple[List[Optional[Tuple[str, int, int]]], int]:

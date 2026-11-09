@@ -6,20 +6,14 @@ from typing import List, Tuple, Optional, Dict
 # ==========================================
 
 # I.A.1
-def greedy_change(coins: List[int], amount: int) -> Tuple[List[int], int]:
-    sorted_coins = sorted(coins, reverse=True)
-    selected: List[int] = []
-    remainder = amount
-    
-    for coin in sorted_coins:
-        if remainder <= 0:
-            break
-        if coin <= remainder:
-            count = remainder // coin
-            selected.extend([coin] * count)
-            remainder %= coin
-            
-    return selected, remainder
+def greedy_change(coins : list[int], amount:int) ->tuple[list[int],int]:
+    solu=[]
+    coins = sorted(coins, reverse=True)
+    for i in range(len(coins)):
+        while amount >= coins[i]:
+            amount=amount-coins[i]
+            solu.append(coins[i])
+    return solu,amount
 
 
 # I.B.1
@@ -30,7 +24,6 @@ def optimal_change(coins: List[int], amount: int) -> List[int] | None:
         return None
         
     sorted_coins = sorted(coins, reverse=True)
-    # dp[i] almacena la mejor combinación de monedas (ordenada de mayor a menor) para la cantidad i
     dp: List[Optional[List[int]]] = [None] * (amount + 1)
     dp[0] = []
     
@@ -38,12 +31,10 @@ def optimal_change(coins: List[int], amount: int) -> List[int] | None:
         best_comb: Optional[List[int]] = None
         for c in sorted_coins:
             if a >= c and dp[a - c] is not None:
-                # Insertar manteniendo el orden descendente para comparar lexicográficamente
                 cand = sorted(dp[a - c] + [c], reverse=True)
                 if best_comb is None:
                     best_comb = cand
                 else:
-                    # Menor número de monedas; en caso de empate, mayor orden lexicográfico
                     if len(cand) < len(best_comb) or (len(cand) == len(best_comb) and cand > best_comb):
                         best_comb = cand
         dp[a] = best_comb
@@ -63,7 +54,6 @@ def compare_change(coins: List[int], max_amount: int) -> Dict[str, List[int]]:
     if max_amount < 1:
         return result
 
-    # Precalculamos la tabla de programación dinámica hasta max_amount para mayor eficiencia
     sorted_coins = sorted(coins, reverse=True)
     dp: List[Optional[List[int]]] = [None] * (max_amount + 1)
     dp[0] = []
@@ -96,7 +86,6 @@ def compare_change(coins: List[int], max_amount: int) -> Dict[str, List[int]]:
 # ==========================================
 # II. SELECCIÓN DE ACTIVIDADES
 # ==========================================
-
 # II.A.1
 def activity_selection(activities: List[Tuple[str, int, int]]) -> List[Tuple[str, int, int]]:
     sorted_activities = sorted(activities, key=lambda x: (x[2], x[1], x[0]))
@@ -161,40 +150,3 @@ def generate_jobs(n: int, seed: int = 42) -> List[Tuple[str, int, int]]:
         deadline = random.randint(1, max_deadline)
         jobs.append((identifier, profit, deadline))
     return jobs
-
-def greedy_change(coins : list[int], amount:int) ->tuple[list[int],int]:
-    solu=[]
-    coins = sorted(coins, reverse=True)
-    for i in range(len(coins)):
-        while amount >= coins[i]:
-            amount=amount-coins[i]
-            solu.append(coins[i])
-    return solu,amount
-
-
-def optimal_change(coins: list[int], amount: int) -> list[int] | None:
-    if amount == 0:
-        return []
-    coins = sorted(coins, reverse=True)
-    dp = [None] * (amount + 1)
-    dp[0] = 0                                  
-
-    for i in range(1, amount + 1):
-        for coin in coins:
-            if i >= coin and dp[i-coin] is not None:
-                if dp[i] is None or dp[i-coin] + 1 < dp[i]:
-                    dp[i] = dp[i-coin] + 1
-
-    if dp[amount] is None:
-        return None
-
-    solu = []
-    i = amount
-    while i > 0:
-        for coin in coins:
-            if i >= coin and dp[i-coin] is not None and dp[i-coin] == dp[i] - 1:
-                solu.append(coin)
-                i = i - coin
-                break
-
-    return solu

@@ -58,7 +58,6 @@ def compare_change(coins: List[int], max_amount: int) -> Dict[str, List[int]]:
     if max_amount < 1:
         return result
 
-    # Precalculamos la tabla de programación dinámica hasta max_amount para mayor eficiencia
     sorted_coins = sorted(coins, reverse=True)
     dp: List[Optional[List[int]]] = [None] * (max_amount + 1)
     dp[0] = []
@@ -91,7 +90,6 @@ def compare_change(coins: List[int], max_amount: int) -> Dict[str, List[int]]:
 # ==========================================
 # II. SELECCIÓN DE ACTIVIDADES
 # ==========================================
-
 # II.A.1
 def activity_selection(activities: List[Tuple[str, int, int]]) -> List[Tuple[str, int, int]]:
     sorted_activities = sorted(activities, key=lambda x: (x[2], x[1], x[0]))

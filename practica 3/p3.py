@@ -11,7 +11,7 @@ import random
 # I.A Alineamiento Global: Needleman-Wunsch
 
 def needleman_wunsch_matrix(seq1: str, seq2: str, match: int = 2, mismatch: int = -1, gap: int = -1) -> list[list[int]]:
-    columnas = len(seq1 + 1)
+    columnas = len(seq1) + 1
     filas = len(seq2) + 1
     matriz = [[0 for _ in range(columnas)] for _ in range(filas)]
 
@@ -69,8 +69,8 @@ def needleman_wunsch_backtracking(matrix: list[list[int]], seq1: str, seq2: str,
         else:
             score = 0
         if i > 0 and j > 0 and matrix[i][j] == matrix[i-1][j-1] + score:
-            align1 += seq1
-            align2 += seq2
+            align1 += seq1[j-1]
+            align2 += seq2[i-1]
             i -= 1
             j -= 1
         elif i > 0 and  matrix[i][j] == matrix[i-1][j] + gap:
@@ -88,8 +88,6 @@ def needleman_wunsch_backtracking(matrix: list[list[int]], seq1: str, seq2: str,
     total_score = matrix[-1][-1]
     #return tupla
     return (align1, align2, total_score)
-
-    pass
 
 # I.B Alineamiento Local: Smith-Waterman
 
@@ -159,7 +157,7 @@ def min_path_recursive(grid: list[list[int]], i: int, j: int) -> int:
     coste_arriba = min_path_recursive(grid, i - 1, j)
     coste_izquierda= min_path_recursive(grid, i, j-1)
 
-    return grid[0][0] + min(coste_arriba, coste_izquierda)
+    return grid[i][j] + min(coste_arriba, coste_izquierda)
 
 # II.B Programación Dinámica (Enfoque Bottom-Up)
 
@@ -179,7 +177,7 @@ def min_path_dp(grid: list[list[int]]) -> tuple[int, list[list[int]]]:
 
     #rellenamos la primera fila i = 0
     for j in range(1, m):
-        grid[0][j] = costes[0][j-1] + grid[0][j]
+        costes[0][j] = costes[0][j-1] + grid[0][j]
 
     #rellenamos primera columna j = 0
     for i in range(1, n):
@@ -190,7 +188,7 @@ def min_path_dp(grid: list[list[int]]) -> tuple[int, list[list[int]]]:
         for j in range(1, m):
             costes[i][j] = grid[i][j] + min(costes[i-1][j], costes[i][j-1])
 
-    return (costes[n-1], [m -1], costes)
+    return (costes[n-1][m -1], costes)
 
 # II.C Reconstrucción de la Ruta Óptima
 
@@ -217,7 +215,7 @@ def get_optimal_path(grid: list[list[int]]) -> tuple[int, list[tuple[int, int]]]
         if i == 0:
             j -= 1
         elif j == 0:
-            i -= 0
+            i -= 1
         elif coste[i-1][j] < coste[i][j-1]:
             i -= 1
         else:

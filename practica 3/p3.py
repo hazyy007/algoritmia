@@ -11,6 +11,20 @@ import random
 # I.A Alineamiento Global: Needleman-Wunsch
 
 def needleman_wunsch_matrix(seq1: str, seq2: str, match: int = 2, mismatch: int = -1, gap: int = -1) -> list[list[int]]:
+    """
+    Construye y devuelve la matriz completa de programación dinámica para el 
+    alineamiento global de dos secuencias mediante el algoritmo Needleman-Wunsch.
+
+    La matriz resultante tiene dimensiones (len(seq2) + 1) x (len(seq1) + 1), 
+    donde seq1 se desarrolla a lo largo de las columnas y seq2 a lo largo de las filas.
+
+    :param seq1: Primera secuencia a alinear (desarrollada en columnas).
+    :param seq2: Segunda secuencia a alinear (desarrollada en filas).
+    :param match: Puntuación acordada para una coincidencia de caracteres.
+    :param mismatch: Penalización por diferencia de caracteres.
+    :param gap: Penalización por introducción de hueco (gap).
+    :return: Matriz de programación dinámica (lista de listas de enteros).
+    """
     columnas = len(seq1) + 1
     filas = len(seq2) + 1
     matriz = [[0 for _ in range(columnas)] for _ in range(filas)]
